@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Chats</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>Chats</h2>
+		{%if hasChat %}
+		<table>
+		<tr class="firstRow">
+			<td>Name</td>
+			<td>Last Update</td>
+		</tr>
+		{% for chat in chats %}
+		<tr>
+			<td>{{ chat[0] }}</td>
+			<td>{{ chat[1] }}</td>
+			<td>
+				<form action="{{ url_for('chat') }}" method="post" autocomplete="off">
+					<input type="hidden" id="chat_id" name="chat_id" value={{ chat[2] }}>
+					<input type="submit" value="Open">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>{{ chat[3] }}</td>
+			<td>{{ chat[4] }}</td>
+		</tr>
+		{% endfor %}
+		</table>
+		{% else %}
+		<p class="msgNotice">You are not currently part of any chats</p>
+		{% endif %}
+		</div>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Account</title>
+	</head>
+	<body>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'Charity' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'Volunteer' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+		<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+			<div class="center">
+			<h2>Account Details</h2>
+			<p class="error">{{ msg }}<p>
+			<h3>General</h3>
+			<table>
+				<tr>
+					<td style="width:110px">Username:</td><td>{{ username }}</td>
+				</tr>
+				<tr>
+					<td>Name:</td><td>{{ name }}</td>
+				</tr>
+				<tr>
+					<td>E-mail:</td><td>{{ email }}</td>
+				</tr>
+				<tr>
+					<td>Phone:</td><td>{{ phone }}</td>
+				</tr>
+				<tr>
+					<td>Account Type:</td><td>{{ isCharity }}</td>
+				</tr>
+				{% if isCharity == 'Volunteer' %}
+				<tr>
+					<td>Range:</td><td>{{ maxDis }} miles</td>
+				</tr>
+				<tr>
+					<td>DBS:</td><td>{{ dbs }}</td>
+				</tr>
+				{% endif %}
+			</table>
+			<a href="{{ url_for('editDetails') }}"><button>Edit Details</button></a><br>
+			
+			{% if isCharity == 'Volunteer' %}
+			<h3>Address</h3>
+			<table>
+				<tr>
+					<td style="width:110px">address Line 1:</td><td>{{ ad_line1 }}</td>
+				</tr>
+				<tr>
+					<td>address Line 2:</td><td>{{ ad_line2 }}</td>
+				</tr>
+				<tr>
+					<td>City:</td><td>{{ city }}</td>
+				</tr>
+				<tr>
+					<td>County:</td><td>{{ county }}</td>
+				</tr>
+				<tr>
+					<td>Postcode:</td><td>{{ postcode }}</td>
+				</tr>
+			</table>
+			<a href="{{ url_for('editAddress') }}"><button>Edit Address</button></a><br>			
+			
+			<h3>Interests</h3>
+			<table style="width:300px">
+			{% for userInterest in userInterests %}
+				<tr>
+					<td>
+						{{ userInterest[0] }}
+					</td>
+					<td>
+						<form action="{{ url_for('removeInterest') }}" method="post" autocomplete="off" style="width:80px">
+							<input type="hidden" id="interest_id" name="interest_id" value={{ userInterest[1] }}>
+							<input type="submit" value="Remove" style="width:100%">
+						</form>
+					</td>
+				</tr>
+			{% endfor %}
+				<tr>
+					<td>		
+						<form action="{{ url_for('addInterest') }}" method="post" autocomplete="off">
+							<label for="newInterest" class="boxNLable">Add Interest</label>
+							<select name="newInterest" placeholder="Add Interest" id="newInterest">
+								{% for interest in interests %}
+								<option value={{ interest[0] }}>{{ interest[1] }}</option>
+								{% endfor %}
+							</select>
+					</td>
+					<td>
+							<input type="submit" value="Add" style="width:80px">
+					</td>
+						</form>	
+			</table>
+					
+			<div style="width:50%;float:left;min-width:150px">
+			<h3>Change Availability</h3>
+			<form action="{{ url_for('addAvadiblity') }}" method="post" autocomplete="off">
+				<label for="day" class="boxNLable">Day</label><br>
+				<select name="day" placeholder="Day of The Week" id="day" class="formDrop">
+					<option value='Monday'>Monday</option>
+					<option value='Tuesday'>Tuesday</option>
+					<option value='Wednesday'>Wednesday</option>
+					<option value='Thursday'>Thursday</option>
+					<option value='Friday'>Friday</option>
+					<option value='Saturday'>Saturday</option>
+					<option value='Sunday'>Sunday</option>
+				</select>
+				<br>
+				
+				<label>Start Time</label><br>
+				<select name="s_hour" id="s_hour" size="1" class="formDrop">
+					<option value='00'>00</option>
+					<option value='01'>01</option>
+					<option value='02'>02</option>
+					<option value='03'>03</option>
+					<option value='04'>04</option>
+					<option value='05'>05</option>
+					<option value='06'>06</option>
+					<option value='07'>07</option>
+					<option value='08'>08</option>
+					<option value='09'>09</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+					<option value='13'>13</option>
+					<option value='14'>14</option>
+					<option value='15'>15</option>
+					<option value='16'>16</option>
+					<option value='17'>17</option>
+					<option value='18'>18</option>
+					<option value='19'>19</option>
+					<option value='20'>20</option>
+					<option value='21'>21</option>
+					<option value='22'>22</option>
+					<option value='23'>23</option>
+					<option value='24'>24</option>
+				</select>
+				<span>:</span>
+				<select name="s_minute" id="s_minute" size="1" class="formDrop">
+					<option value='00'>00</option>
+					<option value='15'>15</option>
+					<option value='30'>30</option>
+					<option value='45'>45</option>
+				</select>
+				<br>
+					
+				<label>Finish Time</label><br>
+				<select name="f_hour" id="f_hour" size="1" class="formDrop">
+					<option value='00'>00</option>
+					<option value='01'>01</option>
+					<option value='02'>02</option>
+					<option value='03'>03</option>
+					<option value='04'>04</option>
+					<option value='05'>05</option>
+					<option value='06'>06</option>
+					<option value='07'>07</option>
+					<option value='08'>08</option>
+					<option value='09'>09</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+					<option value='13'>13</option>
+					<option value='14'>14</option>
+					<option value='15'>15</option>
+					<option value='16'>16</option>
+					<option value='17'>17</option>
+					<option value='18'>18</option>
+					<option value='19'>19</option>
+					<option value='20'>20</option>
+					<option value='21'>21</option>
+					<option value='22'>22</option>
+					<option value='23'>23</option>
+					<option value='24'>24</option>
+				</select>
+				<span>:</span>
+				<select name="f_minute" id="f_minute" size="1" class="formDrop">
+					<option value='00'>00</option>
+					<option value='15'>15</option>
+					<option value='30'>30</option>
+					<option value='45'>45</option>
+				</select>
+				<br>
+				<input type="submit" value="Add" style="width:83px">
+			</form>
+			</div>
+			
+			<div style="width:50%;float:left;min-width:150px">
+			<h3>Availability</h3>
+			<table style="max-width:230px">
+				<tr>
+					<td>Monday</td>
+					{% for times in mon %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Tuesday</td>
+					{% for times in tue %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Wednesday</td>
+					{% for times in wed %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Thursday</td>
+					{% for times in thur %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Friday</td>
+					{% for times in fri %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Saturday</td>
+					{% for times in sat %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					<td>Sunday</td>
+					{% for times in sun %}
+					<td>{{ times }}</td>
+					{% endfor %}
+				</tr>
+			</table>
+			</div>
+			
+			{% endif %}
+			</div>
+		</div>
+	</body>
+</html>

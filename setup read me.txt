@@ -1,0 +1,43 @@
+In this folder you should find:
+- a Folder called static containing a .css file
+- a Folder called templates containing html files
+- a Folder called Dump20220406
+- app.py containing the web app
+
+Installation Instructions:
+1.  Ensure python is installed on your system
+2.  Ensure you can access python. This can be done by entering "pip3" into Command Prompt and and receiving a help message
+3.  Create a directory by typing "md flaskHelpingHands"
+4.  Enter the directory by typing "cd flaskHelpingHands"
+5.  If you haven't done so before, install Python virtual environment support by typing "pip3 install virtualenv"
+6.  Create a virtual environment in the directory by typing "virtualenv flaskHelpingHands"
+7.  cd into the virtual environment directory by typing "cd flaskHelpingHands"
+8.  Enable the virtual environment by typing "scripts\activate"
+9.  Confirm that typing "python" produces a Python startup message and a >> prompt. Exit by typing "quit()"
+10. While the virtual environment is enabled (see 7 above) type "pip3 install flask mysql-connector-python". This will download and install Flask
+11. While the virtual environment is enabled (see 7 above) type "pip3 install requests"
+12. While the virtual environment is enabled (see 7 above) type "pip3 install passlib"
+12. Copy "templates" and "static" folders and "app.py" into flaskHelpingHands (the folder with "Lib" and "Scripts" in)
+13. Open mySQL workbench and create connection with the following details:
+	Hostname: helpinghands
+	Port:3306
+	Username:root
+
+     When prompted enter your password for the root user
+14.  Select connection and enter root password when prompted
+15.  Select "Users and Privileges"
+16.  Select "Add Account" and enter the following details:
+	Login Name: helpinghands
+	Password: qjLPjp4reBk9NL8T
+	Confirm Password: qjLPjp4reBk9NL8T
+
+	select "Administrative Roles" and select DBA
+	select apply
+17.  Select "Data Import/Restore"
+18.  Import from dump project folder : Dump20220406
+19.  Select "new" in "Default Schema to be Imported To" section and enter "helpinghands"
+20.  Select "import process" and select "start import"
+21.  In Command Prompt with the virtual environment in active type "python -m flask run"
+22.  Type http://127.0.0.1:5000/ in to URL
+
+You are now using the web app

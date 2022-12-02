@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>{{ opportinity[1] }}</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		{{ msg }}
+		<div class="center" style="padding-bottom:10px">
+		<h2>{{ opportinity[1] }} - {{ charity }}</h2>
+		<p>Day: {{ opportinity[4] }}</p>
+		<p>Time: {{ opportinity[5] }} - {{ opportinity[6] }}</p>
+		<p>DBS Required: {{ dbs }}</p>
+		<p>{{ opportinity[2] }}</p>
+		<form action="{{ url_for('editOpportunity') }}" method="post" autocomplete="off">
+			<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+			<input type="submit" value="Edit Details">
+		</form>
+		
+		<h3>Interests</h3>
+		<table>
+		{% for opportinityInterest in opportinityInterests %}
+		<tr>
+			<td>
+				{{ opportinityInterest[0] }}
+			</td>
+			<td>
+				<form action="{{ url_for('removeOppotunityInterest') }}" method="post" autocomplete="off">
+					<input type="hidden" id="interest_id" name="interest_id" value={{ opportinityInterest[1] }}>
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+					<input type="submit" value="Remove">
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+		
+		<form action="{{ url_for('addOpportunityInterest') }}" method="post" autocomplete="off">
+			<label for="newInterest" class="boxNLable">Add Interest</label>
+			<select name="newInterest" placeholder="Add Interest" id="newInterest">
+				{% for interest in interests %}
+				<option value={{ interest[0] }}>{{ interest[1] }}</option>
+				{% endfor %}
+			</select>
+			<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+			<input type="submit" value="Add">
+		</form>
+		
+		<h3>Address</h3>
+		<table>
+		<tr>
+			<td style="width:120px">Address Line 1:</td><td>{{ address[0] }}</td>
+		</tr>
+		<tr>
+			<td>Address Line 2:</td><td>{{ address[1] }}</td>
+		</tr>
+		<tr>
+			<td>City:</td><td>{{ address[2] }}</td>
+		</tr>
+		<tr>
+			<td>County:</td><td>{{ address[3] }}</td>
+		</tr>
+		<tr>
+			<td>Postcode:</td><td>{{ address[4] }}</td>
+		</tr>
+		</table>
+		<form action="{{ url_for('editOpAddress') }}" method="post" autocomplete="off">
+			<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+			<input type="submit" value="Edit Address">
+		</form>
+		
+		
+		<h3>Applicants</h3>
+		{% if hasApplicant %}
+		<table>		
+		{% for applicant in applicants %}
+		<tr>
+			<td><b>{{ applicant[0] }}</b></td>
+		</tr>
+		<tr>
+			<td>{{ applicant[1] }}</td>
+		</tr>
+		<tr>
+			<td>
+				<form action="{{ url_for('viewApplication') }}" method="post" autocomplete="off" style="margin-top:10px">
+					<input type="hidden" id="application_id" name="application_id" value={{ applicant[3] }}>
+					<input type="submit" value="View" class="appButton">
+				</form>
+				<form action="{{ url_for('enroll') }}" method="post" autocomplete="off" style="margin-top:10px">
+					<input type="hidden" id="application_id" name="application_id" value={{ applicant[3] }}>
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ applicant[4] }}>
+					<input type="submit" value="Accept" class="appButton">
+				</form>
+				<form action="{{ url_for('reject') }}" method="post" autocomplete="off" style="margin-top:10px">
+					<input type="hidden" id="application_id" name="application_id" value={{ applicant[3] }}>
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ applicant[4] }}>
+					<input type="submit" value="Reject" class="appButton">
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+		{% else %}
+		<P>You have not received any applications</p>
+		{% endif %}
+		<h3>Reference Request</h3>
+		{% if hasRequest %}
+		<table>
+		{% for request in referenceRequests %}
+		<tr>
+			<td><b>{{ request[1] }}</b></td>
+		</tr>
+		<tr>
+			<td>
+				<form action="{{ url_for('writeReference') }}" method="post" autocomplete="off" style="margin-top:10px">
+					<input type="hidden" id="request_id" name="request_id" value={{ request[0] }}>
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+					<input type="submit" value="Write" class="appButton">
+				</form>
+				<form action="{{ url_for('rejectReference') }}" method="post" autocomplete="off" style="margin-top:10px">
+					<input type="hidden" id="request_id" name="request_id" value={{ request[0] }}>
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+					<input type="hidden" id="user_id" name="user_id" value={{ request[2] }}>
+					<input type="submit" value="Reject" class="appButton">
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+		{% else %}
+		<p>You have not received any reference requests</p>
+		{% endif %}
+		</div>
+	</body>
+	</div>
+</html>

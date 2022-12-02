@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>My References</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>My References</h2>
+		{% if hasReference %}
+		{% for reference in references %}
+		<div class="card">
+		<table>
+		<tr>
+			<td>
+				<b>{{ reference[4] }}</b>
+			</td>
+			<td>
+				<form action="{{ url_for('reference') }}" method="post" autocomplete="off">
+					<input type="hidden" id="reference_id" name="reference_id" value={{ reference[0] }}>
+					<input type="submit" value="Open" class="cardButton">
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				{{ reference[1] }}
+			</td>
+			<td style="width:82px">
+				{{ reference[2] }}<br>
+				{{ reference[3] }}<br>
+			</td>
+		</tr>
+		</table>
+		</div>
+		{% endfor %}
+		{% else %}
+		<p class="msgNotice">You do not have any references</p>
+		{% endif %}
+	</div>
+	</body>
+	</div>
+</html>

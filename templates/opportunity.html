@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>{{ opportinity[1] }}</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>{{ opportinity[1] }} - {{ opportinity[8] }}</h2>
+		{% if msg == "you have already applied" %}
+		<p class="msgErr">{{ msg }}</p>
+		{% endif %}
+		<h3>Details</h3>
+		<p>Day: {{ opportinity[4] }}</p>
+		<p>time: {{ opportinity[5] }} - {{ opportinity[6] }}</p>
+		<p>DBS Required: {{ dbs }}</p>
+		<p>{{ opportinity[2] }}</p>
+		<h3>Interests</h3>
+		<p>
+			{% for interest in opportinityInterests %}
+			{{ interest[0] }}
+			{% endfor %}
+		</p>
+		
+		<h3>Address</h3>
+		<p>
+		{% for line in address %}
+		{{ line }}<br>
+		{% endfor %}
+		</p>
+		
+		<h3>Apply</h3>
+		<form action="{{ url_for('apply') }}" method="post" autocomplete="off">
+			<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+			<label for="why" class="boxNLable">Why do you want to apply to this role?</label>
+			<br>
+			<textarea rows="10" cols="40" name="why" placeholder="Why do you want to apply to this role?" id="why" required></textarea>
+			<br>
+			<input type="submit" value="Apply">
+		</form>
+		</div>
+	</body>
+	</div>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>New Oppotunity</title>
+	</head>
+	<body>
+		<h2>New Oppotunity</h2>
+		<form action="{{ url_for('postOpportunity') }}" method="post" autocomplete="off">
+			<label for="title" class="boxNLable">Title</label>
+			<br>
+			<input type="text" name="title" placeholder="Title" id="title" required>
+			<br>
+			
+			<label for="discription" class="boxNLable">Discription</label>
+			<br>
+			<textarea rows="10" cols="30" name="discription" placeholder="Discription" id="discription" required></textarea>
+			<br>
+			
+			<br>
+			<label>Must be DBS Checked</label><br>
+			<input type="radio" id="yes" name="dbs" value="yes">
+			<label for="yes">Yes</label>
+			<input type="radio" id="no" name="dbs" value="no">
+			<label for="charity">No</label><br>
+			<br>
+			
+			<label for="day" class="boxNLable">Day of the Week</label>
+			<br>
+			<select name="day" placeholder="Day of The Week" id="day" required>
+				<option value=1>Monday</option>
+				<option value=2>Tuesday</option>
+				<option value=3>Wednesday</option>
+				<option value=4>Thursday</option>
+				<option value=5>Friday</option>
+				<option value=6>Saturday</option>
+				<option value=7>Sunday</option>
+			</select>
+			<br>
+			
+			<label>Time</label>
+			<select name="hour" placeholder="hour" id="hour" size="1" required>
+				<option value=0>00</option>
+				<option value=1>01</option>
+				<option value=2>02</option>
+				<option value=3>03</option>
+				<option value=4>04</option>
+				<option value=5>05</option>
+				<option value=6>06</option>
+				<option value=7>07</option>
+				<option value=8>08</option>
+				<option value=9>09</option>
+				<option value=10>10</option>
+				<option value=11>11</option>
+				<option value=12>12</option>
+				<option value=13>13</option>
+				<option value=14>14</option>
+				<option value=15>15</option>
+				<option value=16>16</option>
+				<option value=17>17</option>
+				<option value=18>18</option>
+				<option value=19>19</option>
+				<option value=20>20</option>
+				<option value=21>21</option>
+				<option value=22>22</option>
+				<option value=23>23</option>
+				<option value=24>24</option>
+			</select>
+			<select name="minute" placeholder="minute" id="minute" size="1" required>
+				<option value=0>00</option>
+				<option value=15>15</option>
+				<option value=30>30</option>
+				<option value=45>45</option>
+			</select>
+			<br>
+			
+			<label for="ad_line1" class="boxNLable">Address Line 1:</label>
+			<input type="text" name="ad_line1" placeholder="Address Line 1" id="ad_line1" required>
+			<br>
+			
+			<label for="ad_line2" class="boxNLable">Address Line 2:</label>
+			<input type="text" name="ad_line2" placeholder="Address Line 2" id="ad_line2" required>
+			<br>
+			
+			<label for="city" class="boxNLable">City:</label>
+			<input type="text" name="city" placeholder="City" id="city" required>
+			<br>
+			
+			<label for="county" class="boxNLable">County:</label>
+			<input type="text" name="county" placeholder="County" id="county" required>
+			<br>
+			
+			<label for="postcode" class="boxNLable">Postcode:</label>
+			<input type="text" name="postcode" placeholder="Postcode" id="postcode" required>
+			<br>
+			
+			<input type="submit" value="Post">
+		</form>
+	</body>
+</html>

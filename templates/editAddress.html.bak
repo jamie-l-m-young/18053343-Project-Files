@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Change Address</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>Edit Address</h2>
+		<form action="{{ url_for('editAddress') }}" method="post" autocomplete="off">
+			<label for="ad_line1" class="boxNLable">Address Line 1:</label>
+			<input type="text" name="ad_line1" placeholder="Address Line 1" id="ad_line1" required>
+			<br>
+			<label for="ad_line2" class="boxNLable">Address Line 2:</label>
+			<input type="text" name="ad_line2" placeholder="Address Line 2" id="ad_line2" required>
+			<br>
+			<label for="city" class="boxNLable">City:</label>
+			<input type="text" name="city" placeholder="City" id="city" required>
+			<br>
+			<label for="county" class="boxNLable">County:</label>
+			<input type="text" name="county" placeholder="County" id="county" required>
+			<br>
+			<label for="postcode" class="boxNLable">Postcode:</label>
+			<input type="text" name="postcode" placeholder="Postcode" id="postcode" required>
+			<br>
+			<div class="msg">{{ msg }}</div>
+			<input class="button equal" type="submit" value="Confirm">
+		</form>
+		</div>
+	</body>
+	</div>
+</html>

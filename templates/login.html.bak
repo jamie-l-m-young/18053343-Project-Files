@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Login</title>
+	</head>
+	<body>
+		<div class="formBox">
+			<h1>Login</h1>
+			{% if msg == "That username doesn't exist - please try again or register a new account" or msg == "Session creation failed" or msg == "That password is not recongnized" %}
+			<div class="msgErr">{{ msg }}</div>
+			{% endif %}
+			<form action="{{ url_for('login') }}" method="post" autocomplete="off">
+				<label for="username" class="boxNLable">Username</label>
+				<input type="text" name="username" placeholder="Username" id="username" required>
+				<label for="password" class="boxNLable">Password</label>
+				<input type="password" name="password" placeholder="Password" id="password" required>
+				<input class="button equal" type="submit" value="Login" style="margin-right:10px">
+			</form>
+			<a href="{{ url_for('register') }}"><button class="equal">Register</button></a>
+		</div>
+	</body>
+</html>

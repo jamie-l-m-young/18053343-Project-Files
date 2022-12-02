@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Apply</title>
+	</head>
+	<body>
+		<h2>Apply</h2>
+		<form action="{{ url_for('search') }}" method="post" autocomplete="off">
+			<label for="title" class="boxNLable">Why do you want to apply for this opportunity</label>
+			<input type="text" name="title" placeholder="Title" id="title"></br>
+			
+			<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ result[9] }}>
+			
+			<input type="submit" value="Search">
+		</form>
+	</body>
+</html>

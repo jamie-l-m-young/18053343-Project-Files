@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Change Opportunity Details</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>Edit Details</h2>
+		{% if msg == "Please don't use quotation marks" %}
+		<div class="msgErr">{{ msg }}</div>
+		{% endif %}
+		<P>Only enter details that you wish to change. You don't have to re-type details you wish to stay the same.</p>
+		<form action="{{ url_for('editOpportunity') }}" method="post" autocomplete="off">
+			<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ opportinity_id }}>
+			
+			<label for="title" class="boxNLable">Title:</label>
+			<input type="text" name="title" placeholder="Enter title" id="title">
+			<br>
+			
+			<label for="discription" class="boxNLable">Description</label>
+			<br>
+			<textarea rows="10" cols="30" name="discription" placeholder="Enter description" id="discription"></textarea>
+			<br>
+			
+			<br>
+			<label>Do the volunteers need to be DBS checked?</label><br>
+			<input type="radio" id="yes" name="dbs" value="yes">
+			<label for="yes">Yes</label>
+			<input type="radio" id="no" name="dbs" value="no">
+			<label for="charity">No</label><br>
+			<br>
+			
+			<label for="day" class="boxNLable">When do you need volunteers</label>
+			<br>
+			<select name="day" placeholder="Day of The Week" id="day" class="formDrop">
+				<option value='Any'>No Change</option>
+				<option value='Monday'>Monday</option>
+				<option value='Tuesday'>Tuesday</option>
+				<option value='Wednesday'>Wednesday</option>
+				<option value='Thursday'>Thursday</option>
+				<option value='Friday'>Friday</option>
+				<option value='Saturday'>Saturday</option>
+				<option value='Sunday'>Sunday</option>
+			</select>
+			<br>
+			
+			<label>Start Time (Please enter hour and Minute)</label><br>
+			<select name="s_hour" id="s_hour" size="1" class="formDrop">
+				<option value='Any'>No Change</option>
+				<option value='0'>00</option>
+				<option value='1'>01</option>
+				<option value='2'>02</option>
+				<option value='3'>03</option>
+				<option value='4'>04</option>
+				<option value='5'>05</option>
+				<option value='6'>06</option>
+				<option value='7'>07</option>
+				<option value='8'>08</option>
+				<option value='9'>09</option>
+				<option value='10'>10</option>
+				<option value='11'>11</option>
+				<option value='12'>12</option>
+				<option value='13'>13</option>
+				<option value='14'>14</option>
+				<option value='15'>15</option>
+				<option value='16'>16</option>
+				<option value='17'>17</option>
+				<option value='18'>18</option>
+				<option value='19'>19</option>
+				<option value='20'>20</option>
+				<option value='21'>21</option>
+				<option value='22'>22</option>
+				<option value='23'>23</option>
+				<option value='24'>24</option>
+			</select>
+			<span>:</span>
+			<select name="s_minute" id="s_minute" size="1" class="formDrop">
+				<option value='Any'>No Change</option>
+				<option value='00'>00</option>
+				<option value='15'>15</option>
+				<option value='30'>30</option>
+				<option value='45'>45</option>
+			</select>
+			<br>
+			
+			<label>Finish Time</label><br>
+			<select name="f_hour" id="f_hour" size="1" class="formDrop">
+				<option value='Any'>No Change</option>
+				<option value='0'>00</option>
+				<option value='1'>01</option>
+				<option value='2'>02</option>
+				<option value='3'>03</option>
+				<option value='4'>04</option>
+				<option value='5'>05</option>
+				<option value='6'>06</option>
+				<option value='7'>07</option>
+				<option value='8'>08</option>
+				<option value='9'>09</option>
+				<option value='10'>10</option>
+				<option value='11'>11</option>
+				<option value='12'>12</option>
+				<option value='13'>13</option>
+				<option value='14'>14</option>
+				<option value='15'>15</option>
+				<option value='16'>16</option>
+				<option value='17'>17</option>
+				<option value='18'>18</option>
+				<option value='19'>19</option>
+				<option value='20'>20</option>
+				<option value='21'>21</option>
+				<option value='22'>22</option>
+				<option value='23'>23</option>
+				<option value='24'>24</option>
+			</select>
+			<span>:</span>
+			<select name="f_minute" id="f_minute" size="1" class="formDrop">
+				<option value='Any'>No Change</option>
+				<option value='00'>00</option>
+				<option value='15'>15</option>
+				<option value='30'>30</option>
+				<option value='45'>45</option>
+			</select>
+			<br>
+			
+			<input class="button" type="submit" value="Confirm">
+		</form>
+		</div>
+	</body>
+	</div>
+</html>

@@ -1,0 +1,210 @@
+.scroll {
+border: none;
+padding: 5px;
+font: 24px/36px sans-serif;
+width: 200px;
+height: 200px;
+overflow: scroll
+}
+
+.appButton{
+	width:30%; 
+	float:left; 
+	margin:5px 1% 5px 1%;
+	padding:3px;
+}
+
+body {
+    font-family: Helvetica;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  min-width: 150px;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+.boxNLable {
+	font-size:16px;
+}
+
+.column {
+	float:left;
+}
+
+.contentContainer{
+	width:50%;
+	float:left
+}
+
+.left, .right {
+	width:50%;
+	float:left;
+	margin-right: 1%;
+	margin-left: 1%;
+	padding: 10px
+}
+.message{
+  border: 2px solid #ccc;
+  background-color: #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 90%;
+}
+
+.formBox{
+	width:40%;
+	margin-left:30%;
+	margin-right:30%;
+}
+
+.formDrop{
+	padding: 6px;
+	margin: 5px 0 22px 0;
+}
+.formLine{
+	padding: 0px;
+	margin: 0px 0 22px 0;
+}
+
+.lighter{
+	border-color:#dedede;
+	background-color:#f1f1f1;
+	margin-left:5%
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+
+.content {
+	width:50%;
+	float:left;
+}
+
+.horizontal{
+	width:100%
+}
+
+.center{
+	width:60%;
+	margin-left:20%;
+	margin-right:20%;
+}
+
+h1 {
+	font-size:30px;
+}
+
+h2 {
+	font-size:28px;
+	width:100%;
+}
+
+h3 {
+	font-size:20px;
+}
+
+p {
+	font-size:16px;
+}
+
+table{
+	font-size:16px;
+	width:100%;
+	border-collapse: collapse;
+	margin-bottom:10px;
+}
+
+.firstRow{
+	border-bottom: 1pt solid black;
+}
+
+.card{
+	border: 2px solid #dedede;
+	background-color: #f1f1f1;
+	border-radius: 5px;
+	padding: 10px;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.cardButton{
+	width:100%;
+	margin-top:1px;
+	margin-bottom:1px;
+}
+
+.equal {
+  float: left;
+  width: 49%;
+  padding: 16px;
+}
+	
+input[type=text], input[type=password], input[type=tel], input[type=email],input[type=int]{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=tel]:focus,input[type=email]:focus,input[type=int]:focus{
+	width:100%;
+	background-color: #ddd;
+	outline: none;
+}
+.msgErr{
+	border: 2px solid black;
+	background-color: red;
+	border-radius: 5px;
+	padding: 10px;
+	width: 100%;
+	margin: 10px 0;
+}
+
+.msgNotice{
+	border: 2px solid black;
+	background-color: yellow;
+	border-radius: 5px;
+	padding: 10px;
+	width: 100%;
+	margin: 10px 0;
+}

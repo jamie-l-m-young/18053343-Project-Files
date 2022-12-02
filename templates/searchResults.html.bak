@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Search Results</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>Search Results</h2>
+		{% if msg == "Please don't use quotation marks" %}
+		<p class="msgErr">{{ msg }}</p>
+		{% endif %}
+		{% if hasResult %}
+		{% for t1result in t1results %}
+		<div class="card">
+		<table>
+		<tr>
+			<td><b>{{ t1result[1] }}</b></td>
+			<td style="width:80px"><b>{{ t1result[8] }}</b></td>
+		</tr>
+		<tr>
+			<td>{{ t1result[2] }}</td>
+			<td>{{ t2result[4] }} </br> {{ t2result[5] }} </br> {{ t2result[6] }}<br>
+				<form action="{{ url_for('opportunity') }}" method="post" autocomplete="off">
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ t2result[9] }}>
+					<input type="submit" value="Open" style="width:100%">
+				</form>
+			</td>
+		</tr>
+		</table>
+		</div>
+		{% endfor %}
+		{% for t2result in t2results %}
+		<div class="card">
+		<table>
+		<tr>
+			<td><b>{{ t2result[1] }}</b></td>
+			<td style="width:80px"><b>{{ t2result[8] }}</b></td>
+		</tr>
+		<tr>
+			<td>{{ t2result[2] }}</td>
+			<td>{{ t2result[4] }} </br> {{ t2result[5] }} </br> {{ t2result[6] }}<br>
+				<form action="{{ url_for('opportunity') }}" method="post" autocomplete="off">
+					<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ t2result[9] }}>
+					<input type="submit" value="Open" style="width:100%">
+				</form>
+			</td>
+		</tr>
+		</table>
+		</div>
+		{% endfor %}
+		{% else %}
+		<p class="msgNotice">No Matches - Please widen search</p>
+		{% endif %}
+		</div>
+	</body>
+	</div>
+</html>

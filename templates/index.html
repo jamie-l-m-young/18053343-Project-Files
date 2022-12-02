@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Login</title>
+	</head>
+	<body>
+		<ul>
+			<li style="width:25%; margin-right:50%"><a href="{{ url_for('index') }}">Senate Floor</a></li>
+			<li><a href="{{ url_for('chats') }}">Chats</a></li>
+			<li><a href="{{ url_for('account') }}">Account</a></li>
+			{{ msg }}
+		</ul>
+	</body>
+</html>

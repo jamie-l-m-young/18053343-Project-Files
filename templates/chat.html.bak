@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Chats</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<h2 style="padding-left:10%">{{ chat_name[0] }}</h2>
+		<div style="height:400px;width:80%;overflow:scroll;margin-left:10%;margin-right:10%">
+			{% for message in chat %}
+			{% if user_id == message[3] %}
+			<div class="message lighter">
+			<table>
+			<tr>
+				<td>{{ message[0] }}</td>
+				<td style="width:85px">{{ message[1]}}</td>
+			</tr>
+			<tr>
+				<td style="padding-left: 20px;">{{ message[2] }}</td>
+			</tr>
+			</table>
+			</div>
+			{% else %}
+			<div class="message">
+			<table>
+			<tr>
+				<td>{{ message[0] }}</td>
+				<td style="width:85px">{{ message[1]}}</td>
+				
+			</tr>
+			<tr>
+				<td style="padding-left: 20px;">{{ message[2] }}</td>
+			</tr>
+			</table>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+		<div style="width:70%; margin-left:10%; float:left">
+			<form action="{{ url_for('sendMessage') }}" method="post" autocomplete="off">
+				<input type="hidden" id="chat_id" name="chat_id" value={{ chat_id }}>
+				<input type="text" name="message" placeholder="message" id="message" required style="width:80%" >
+				<input class="button" type="submit" value="Send" style="width:14.285714285%; padding:5px">
+			</form>
+		</div>
+		<div style="width:10%; margin-right:10%; float:right">
+			<form action="{{ url_for('refreshChat') }}" method="post" autocomplete="off">
+				<input type="hidden" id="chat_id" name="chat_id" value={{ chat_id }}>
+				<input class="button" type="submit" value="Refresh" style="width: 100%; padding:5px">
+			</form>
+		</div>
+	</body>
+	</div>
+</html>

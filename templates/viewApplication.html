@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Application</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>Application</h1>
+		<div class="info">
+			<table>
+			<tr>
+				<td style="width:80px">Username: </td><td>{{ application[1] }}</td>
+			</tr>
+			<tr>
+				<td>Name: </td><td>{{ application[4] }}</td>
+			</tr>
+			<tr>
+				<td>E-mail: </td><td>{{ application[2] }}</td>
+			</tr>
+			<tr>
+				<td>Phone: </td><td>{{ application[3] }}</td>
+			</tr>
+			</table>
+			<h3>Message</h3>
+			<p>
+				{{ application[5] }}
+			</p>
+			<form action="{{ url_for('enroll') }}" method="post" autocomplete="off">
+				<input type="hidden" id="application_id" name="application_id" value={{ application[0] }}>
+				<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ application[6] }}>
+				<input type="submit" value="Accept" style="padding:8px;width:30%; float:left">
+			</form>
+			<form action="{{ url_for('reject') }}" method="post" autocomplete="off">
+				<input type="hidden" id="application_id" name="application_id" value={{ application[0] }}>
+				<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ application[6] }}>
+				<input type="submit" value="Reject" style="padding:8px;width:30%; float:left">
+			</form>
+		</div>
+		</div>
+	</body>
+	</div>
+</html>

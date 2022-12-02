@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Search</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<h2 style="padding-left:20%">Search</h2>
+		{% if msg == "Please don't use quotation marks" %}
+		<div class="center">
+		<p class="msgErr">{{ msg }}</p>
+		</div>
+		{% endif %}
+		<form action="{{ url_for('search') }}" class = "formBox center" method="post" autocomplete="off">
+			<label for="title" class="boxNLable">Title</label>
+			<input type="text" name="title" placeholder="Title" id="title"></br>
+			
+			<label for="charity" class="boxNLable">Charity</label>
+			<input type="text" name="charity" placeholder="Charity" id="charity"></br>
+			
+			<div style="width:50%;float:left;min-width:150px">
+			<label for="day" class="boxNLable">Day</label><br>
+			<select name="day" placeholder="Day of The Week" id="day" class="formDrop">
+				<option value='Any'>Any</option>
+				<option value='Monday'>Monday</option>
+				<option value='Tuesday'>Tuesday</option>
+				<option value='Wednesday'>Wednesday</option>
+				<option value='Thursday'>Thursday</option>
+				<option value='Friday'>Friday</option>
+				<option value='Saturday'>Saturday</option>
+				<option value='Sunday'>Sunday</option>
+			</select>
+			<br>
+			
+			<label>Start Time</label><br>
+			<select name="s_hour" id="s_hour" size="1" class="formDrop">
+				<option value='any'>Any</option>
+				<option value='0'>00</option>
+				<option value='1'>01</option>
+				<option value='2'>02</option>
+				<option value='3'>03</option>
+				<option value='4'>04</option>
+				<option value='5'>05</option>
+				<option value='6'>06</option>
+				<option value='7'>07</option>
+				<option value='8'>08</option>
+				<option value='9'>09</option>
+				<option value='10'>10</option>
+				<option value='11'>11</option>
+				<option value='12'>12</option>
+				<option value='13'>13</option>
+				<option value='14'>14</option>
+				<option value='15'>15</option>
+				<option value='16'>16</option>
+				<option value='17'>17</option>
+				<option value='18'>18</option>
+				<option value='19'>19</option>
+				<option value='20'>20</option>
+				<option value='21'>21</option>
+				<option value='22'>22</option>
+				<option value='23'>23</option>
+				<option value='24'>24</option>
+			</select>
+			<span>:</span>
+			<select name="s_minute" id="s_minute" size="1" class="formDrop">
+				<option value='0'>Any</option>
+				<option value='0'>00</option>
+				<option value='15'>15</option>
+				<option value='30'>30</option>
+				<option value='45'>45</option>
+			</select>
+			<br>
+			
+			<label>Finish Time</label><br>
+			<select name="f_hour" id="f_hour" size="1" class="formDrop">
+				<option value='any'>Any</option>
+				<option value='0'>00</option>
+				<option value='1'>01</option>
+				<option value='2'>02</option>
+				<option value='3'>03</option>
+				<option value='4'>04</option>
+				<option value='5'>05</option>
+				<option value='6'>06</option>
+				<option value='7'>07</option>
+				<option value='8'>08</option>
+				<option value='9'>09</option>
+				<option value='10'>10</option>
+				<option value='11'>11</option>
+				<option value='12'>12</option>
+				<option value='13'>13</option>
+				<option value='14'>14</option>
+				<option value='15'>15</option>
+				<option value='16'>16</option>
+				<option value='17'>17</option>
+				<option value='18'>18</option>
+				<option value='19'>19</option>
+				<option value='20'>20</option>
+				<option value='21'>21</option>
+				<option value='22'>22</option>
+				<option value='23'>23</option>
+				<option value='24'>24</option>
+			</select>
+			<span>:<span>
+			<select name="f_minute" id="f_minute" size="1" class="formDrop">
+				<option value='0'>Any</option>
+				<option value='0'>00</option>
+				<option value='15'>15</option>
+				<option value='30'>30</option>
+				<option value='45'>45</option>
+			</select>
+			</div>
+			<br>
+						
+			<div style="width:50%;float:left;min-width:150px;">
+			<div class="formLine">
+			<label for="distance">Maximum distance</label>
+			<select name="distance" id="distance">
+				<option value='1'>1</option>
+				<option value='5'>5</option>
+				<option value='10'>10</option>
+				<option value='25'>25</option>
+				<option value='26'>25+</option>
+			</select>
+			<label for="distance">miles</label>
+			<br>
+			</div>
+
+			<div class="formLine">
+			<label for="interest" class="boxNLable">Interest</label>
+			<select name="interest" placeholder="interest" id="interest">
+				<option value={{ '0' }}>Any</option>
+				{% for interest in interests %}
+				<option value={{ interest[0] }}>{{ interest[1] }}</option>
+				{% endfor %}
+			</select>
+			</div>
+			
+			<input type="submit" value="Search" class="button equal" style="width:100%">
+			
+			</div>
+		</form>
+	</body>
+	</div>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Register</title>
+	</head>
+	<body>
+		<div class="formBox">
+			<h1>Register</h1>
+			{% if msg == "There is already an account using this username" or msg == "Password must be at least 8 characters" or msg == "There is already an account using this email address" or msg == "Not valid email address" or msg == "Passwords don't match" or msg == "Please fill out the form!" or msg == "Distance must only contain numbers" %}
+			<div class="msgErr">{{ msg }}</div>
+			{% endif %}
+			<form action="{{ url_for('register') }}" method="post" autocomplete="off">
+				<label for="name" class="boxNLable">Name</label>
+				<input type="text" name="name" placeholder="Name" id="name" required>
+				<br>
+				<label for="username" class="boxNLable">Unique Username</label>
+				<input type="text" name="username" placeholder="Username" id="username" required>
+				<br>
+				<label for="password" class="boxNLable">Password (Min 8 characters)</label>
+				<input type="password" name="password" placeholder="Password" id="password" required>
+				<br>
+				<label for="re-password" class="boxNLable">Re-enter Password</label>
+				<input type="password" name="re-password" placeholder="Re-enter Password" id="re-password" required>
+				<br>
+				<label for="email" class="boxNLable">E-mail</label>
+				<input type="text" name="email" placeholder="Email" id="email" required>
+				<br>
+				<label for="phone" class="boxNLable">Phone Number (No spaces)</label>
+				<input type="tel" name="phone" placeholder="Phone" id="phone" pattern="[0]{1}[0-9]{4}[0-9]{6}" required>
+				<br>
+				<label for="dis" class="boxNLable">How many miles would you be prepared to travel? (If you are registering a charity enter 0)</label>
+				<input type="int" name="dis" placeholder="Max Distance" id="dis" required>
+				<br>
+				<label type="type" class="boxNLable">Are you registering as a volunteer or as a charity?</label><br>
+				<input type="radio" id="volunteer" name="type" value="volunteer" style="margin-top:10px">
+				<label for="volunteer">volunteer</label><br>
+				<input type="radio" id="charity" name="type" value="charity">
+				<label for="charity">charity</label><br>
+				<br>
+				<label for="dbs">Do you have a completed DBS check? (If you are registering a charity select no)</label><br>
+				<input type="radio" id="yes" name="dbs" value="yes" style="margin-top:10px">
+				<label for="yes">Yes</label><br>
+				<input type="radio" id="no" name="dbs" value="no">
+				<label for="no">No</label><br>
+				<br>
+				<input class="button equal" type="submit" value="Register" style="margin-bottom:20px">
+			</form>
+		</div>
+	</body>
+</html>

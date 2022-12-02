@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Home</title>
+	</head>
+	<body>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+		<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+		<div class="center">
+			<h2>Recommended Opportunities</h2>
+			{% if empty == True %}
+			<p class="msgNotice">
+				No recommended opportunities within your travel distance, availability, and DBS critiria.<br>
+				<br>
+				These can be changed in Account
+			</p>
+			{% endif %}
+			{% for result in results %}
+			<div class="card">
+			<table>
+				<tr>
+					<td><b>{{ result[1] }}</b></td>
+					<td><b>{{ result[2] }}</b></td>
+				</tr>
+				<tr>
+					<td>{{ result[3] }}</td>
+					<td>{{ result[4] }} </br> {{ result[5] }} </br> {{ result[6] }}</td>
+				</tr>
+				<tr>
+					<td>
+						<form action="{{ url_for('opportunity') }}" method="post" autocomplete="off">
+							<input type="hidden" id="opportinity_id" name="opportinity_id" value={{ result[0] }}>
+							<input type="submit" value="Open">
+						</form>
+					</td>
+				</tr>
+			</table>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	</body>
+</html>

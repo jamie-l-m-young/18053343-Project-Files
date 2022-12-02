@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>Change Details</title>
+	</head>
+		<ul>
+			<li><a href="{{ url_for('home') }}">Helping Hands</a><br>
+			<li><a href="{{ url_for('account') }}">Account</a><br>
+			<li><a href="{{ url_for('chats') }}">Chats</a><br>
+			{% if isCharity == 'yes' %}
+			<li><a href="{{ url_for('postOpportunity') }}">Create Opportunity</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('myOpportunities') }}">My Opportunities</a><br>
+			{% if isCharity == 'no' %}
+			<li><a href="{{ url_for('applied') }}">My Applications</a><br>
+			<li><a href="{{ url_for('myReferences') }}">My References</a><br>
+			{% endif %}
+			<li><a href="{{ url_for('search') }}">Search</a><br>
+			<li><a href="{{ url_for('logout') }}">Logout</a><br>		
+		</ul>
+	<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+	<body>
+		<div class="center">
+		<h2>Edit Details</h2>
+		<form action="{{ url_for('editDetails') }}" method="post" autocomplete="off">
+			<label for="name" class="boxNLable">Name:</label>
+			<input type="text" name="name" placeholder="Name" id="name">
+			<br>
+			<label for="email" class="boxNLable">E-mail:</label>
+			<input type="text" name="email" placeholder="E-mail" id="email">
+			<br>
+			<label for="phone" class="boxNLable">Phone: (No spaces)</label>
+			<input type="tel" name="phone" placeholder="Phone" id="phone" pattern="[0]{1}[0-9]{4}[0-9]{6}">
+			<br>
+			{% if isCharity == 'no' %}
+			<label for="dis" class="boxNLable">How many miles would you be prepared to travel?:</label>
+			<input type="int" name="dis" placeholder="Range" id="dis" class="formLine">
+			<br>
+			<label for="dbs">DBS:</label>
+			<input type="radio" id="yes" name="dbs" value="yes">
+			<label for="yes">Yes</label>
+			<input type="radio" id="no" name="dbs" value="no">
+			<label for="no">No</label><br>
+			<br>
+			{% endif %}
+			<div class="msg">{{ msg }}</div>
+			<input class="button" type="submit" value="Confirm" style="padding:8px;width:50%">
+		</form>
+		</div>
+	</body>
+	</div>
+</html>
